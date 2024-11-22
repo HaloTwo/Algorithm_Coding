@@ -10,7 +10,6 @@ int main()
 	int n, m;
 	cin >> n;
 
-
 	while (n--)
 	{
 		cin >> m;
@@ -26,8 +25,8 @@ int main()
 			map[num] = key;
 		}
 
-		auto it = map.end();
-		cout << (--it)->second << "\n";
+		auto rit = map.rbegin();
+		cout << rit->second << "\n";
 	}
 
 	return 0;
