@@ -5,13 +5,12 @@ int solution(vector<int> nums)
 {
     unordered_map<int, int> phonekemon;
     
-    int pick = nums.size() / 2;
-    
     for(int num : nums) 
     {
         phonekemon[num]++;
     }
     
+    int pick = nums.size() / 2;
     int kinds = phonekemon.size();
     
     return min(kinds, pick);
