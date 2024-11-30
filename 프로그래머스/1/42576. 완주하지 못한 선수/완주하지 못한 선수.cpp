@@ -8,25 +8,24 @@ string solution(vector<string> participant, vector<string> completion)
     
     unordered_map<string, int> maratonPerson;
     
-    
-    for(auto name : participant) 
+    for(auto participants : participant)
     {
-        maratonPerson[name]++;
+        maratonPerson[participants]++;
     }
     
-    for(auto name : completion) 
+    for(auto completions : completion)
     {
-        maratonPerson[name]--;
+        maratonPerson[completions]--;
     }
     
-    
-    for(auto itr : maratonPerson) 
+    for(auto maratonPersons : maratonPerson)
     {
-        if(itr.second > 0) 
+        if(maratonPersons.second > 0)
         {
-            answer=itr.first;
-        }
-    }
+            answer = maratonPersons.first;
+            break;
+        };
+    }  
     
     return answer;
 }
