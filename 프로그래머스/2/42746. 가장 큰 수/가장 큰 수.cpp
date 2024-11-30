@@ -10,7 +10,7 @@ string solution(vector<int> numbers)
         strings.push_back(to_string(num));
     }
     
-    sort(strings.begin(), strings.end(), [](auto a, auto b)
+    sort(strings.begin(), strings.end(), [](auto& a, auto& b)
     {
         return a + b > b + a; 
     });
