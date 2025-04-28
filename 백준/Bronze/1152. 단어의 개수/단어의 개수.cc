@@ -2,26 +2,28 @@
 #include <string>
 using namespace std;
 
-int main()
+int main() 
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
+	ios_base::sync_with_stdio(false);
 
-    string str;
-    getline(cin, str); 
+	cin.tie(0);
+	cout.tie(0);
 
-    int count = 0;
-    for (int i = 0; i < str.length(); i++)
-    {
-        if (str[i] == ' ')
-        {
-            count++;
-        }
-    }
+	string str;
 
-    if (str[0] == ' ') count--;
-    if (str[str.length() - 1] == ' ') count--;
-    cout << ++count;
+	getline(cin, str);
 
-    return 0;
+	int count = 0;
+	for (int i = 0; i < str.length(); i++)
+	{
+		if (str[i] == ' ')
+		{
+			count++;
+		}
+	}
+	if (str[0] == ' ')count--;
+	if (str[str.length() - 1] == ' ')count--;
+	cout << ++count;
+
+	return 0;
 }
