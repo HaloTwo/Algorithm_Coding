@@ -30,7 +30,7 @@ int main()
 	{
 		cin >> s;
 
-		if (str.find(s) != str.end()) count++;
+		if (str.count(s)) count++;
 	}
 
 	cout << count << '\n';
