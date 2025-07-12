@@ -1,37 +1,8 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
 using namespace std;
-
-
-vector<int> num;
-
-int Search(vector<int>& arr, int target)
-{
-	int start = 0;
-	int end = arr.size() - 1;
-
-	while (start <= end)
-	{
-		int mid = (start + end) / 2;
-
-		if (arr[mid] == target)
-		{
-			return 1;
-		}
-		// 왼쪽 탐색
-		if (arr[mid] > target)
-		{
-			end = mid - 1;
-		}
-		// 오른쪽 탐색
-		else
-		{
-			start = mid + 1;
-		}
-	}
-	return 0;
-}
 
 int main()
 {
@@ -39,25 +10,26 @@ int main()
 	cin.tie(0);
 	cout.tie(0);
 
-	int N, M;
+	int N, M, x;
+	vector<int> vec;
 
 	cin >> N;
+	vec.resize(N);
 
 	for (int i = 0; i < N; i++)
 	{
-		cin >> M;
-		num.push_back(M);
+		cin >> x;
+		vec[i] = x;
 	}
 
-	sort(num.begin(), num.end());
+	sort(vec.begin(), vec.end());
 
-	cin >> N;
+	cin >> M;
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < M; i++)
 	{
-		cin >> M;
-		cout << Search(num, M) << "\n";
-	}
+		cin >> x;
 
-	return 0;
+		cout << binary_search(vec.begin(), vec.end(), x) << "\n";
+	}
 }
