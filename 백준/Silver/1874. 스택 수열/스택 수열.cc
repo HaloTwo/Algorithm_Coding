@@ -16,13 +16,14 @@ int main()
 	int n, x;
 
 	queue<int> que;
+	stack<int> stk;
+
 	vector<string> result;
 
-	stack<int> stk;
 
 	cin >> n;
 
-	//vec에 값 다 넣어둠
+	//n까지의 수 저장
 	for (int i = 0; i < n; i++) que.push(i + 1);
 
 	for (int i = 0; i < n; i++)
@@ -36,7 +37,6 @@ int main()
 
 			result.push_back("+");
 		}
-
 
 		if (!stk.empty() && stk.top() == x)
 		{
