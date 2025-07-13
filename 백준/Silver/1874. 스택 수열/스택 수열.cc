@@ -1,55 +1,60 @@
 #include <iostream>
 #include <stack>
 #include <vector>
+#include <string>
+#include <queue>
 
 using namespace std;
 
-int main() 
+int main()
 {
-    int n;
-    cin >> n;
+	ios::sync_with_stdio(false);
 
-    vector<int> sequence(n); // 입력 수열
-    vector<char> result;     // 출력 배열
-    stack<int> s;            // 스택
+	cin.tie(nullptr);
+	cout.tie(nullptr);
 
-    for (int i = 0; i < n; ++i) 
-    {
-        cin >> sequence[i];
-    }
+	int n, x;
 
-    int current = 1; 
+	queue<int> que;
+	vector<string> result;
 
-    for (int i = 0; i < n; ++i) 
-    {
-        int target = sequence[i];
+	stack<int> stk;
 
-        // 필요한 숫자까지 push
-        while (current <= target) 
-        {
-            s.push(current);
-            result.push_back('+');
-            current++;
-        }
+	cin >> n;
 
-        // top이랑 target 같으면 pop
-        if (!s.empty() && s.top() == target) 
-        {
-            s.pop();
-            result.push_back('-');
-        }
-        else 
-        {
-            cout << "NO\n";
-            return 0;
-        }
-    }
+	//vec에 값 다 넣어둠
+	for (int i = 0; i < n; i++) que.push(i + 1);
 
-    // 연산 결과 출력
-    for (char c : result) 
-    {
-        cout << c << '\n';
-    }
+	for (int i = 0; i < n; i++)
+	{
+		cin >> x;
 
-    return 0;
+		while (!que.empty() && que.front() <= x)
+		{
+			stk.push(que.front());
+			que.pop();
+
+			result.push_back("+");
+		}
+
+
+		if (!stk.empty() && stk.top() == x)
+		{
+			stk.pop();
+			result.push_back("-");
+		}
+		else if (!stk.empty() && stk.top() > x)
+		{
+			cout << "NO\n";
+			return 0;
+		}
+	}
+
+	for (int i = 0; i < result.size(); i++)
+	{
+		cout << result[i] << "\n";
+	}
+
+
+	return 0;
 }
