@@ -1,61 +1,84 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
+#include <algorithm>
+
 using namespace std;
 
-int T;
+int map[51][51];
+bool visited[51][51];
+
 int dx[4] = { 0, 0, 1, -1 };
 int dy[4] = { 1, -1, 0, 0 };
 
-void dfs(vector<vector<int>>& graph, vector<vector<bool>>& visited, int x, int y, int N, int M)  // N, M 추가
+void dfs(int x, int y, int M, int N)
 {
 	visited[x][y] = true;
 
+	//4방향 검사
 	for (int i = 0; i < 4; i++)
 	{
 		int nx = x + dx[i];
 		int ny = y + dy[i];
-		if (nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
-		if (visited[nx][ny] || graph[nx][ny] != 1) continue;
-		dfs(graph, visited, nx, ny, N, M);
+
+		if (nx >= 0 && nx < M && ny >= 0 && ny < N)
+		{
+			if (map[nx][ny] == 1 && !visited[nx][ny])
+			{
+				dfs(nx, ny, M, N);
+			}
+		}
 	}
 }
 
+
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
+	ios::sync_with_stdio(false);
+
+	cin.tie(nullptr);
+	cout.tie(nullptr);
+
+	int T, M, N, K;
 
 	cin >> T;
+
 	while (T--)
 	{
-		int M, N, K;
 		cin >> M >> N >> K;
 
-		vector<vector<int>> graph(N, vector<int>(M, 0));
-		vector<vector<bool>> visited(N, vector<bool>(M, false));
-
-		for (int i = 0; i < K; i++)
+		for (int i = 0; i < K; i++)  
 		{
-			int X, Y;
-			cin >> X >> Y;
-			graph[Y][X] = 1;
+			int x, y;
+			cin >> x >> y;
+
+			map[x][y] = 1; // 배추 심기
 		}
 
-		int result = 0;
-		for (int i = 0; i < N; i++)
+		int cnt = 0; 
+
+		for (int i = 0; i < M; i++)
 		{
-			for (int j = 0; j < M; j++)
+			for (int j = 0; j < N; j++)
 			{
-				if (graph[i][j] == 1 && !visited[i][j])
+				if (map[i][j] == 1 && !visited[i][j])
 				{
-					dfs(graph, visited, i, j, N, M);
-					result++;
+					dfs(i, j, M, N);
+					cnt++;
 				}
 			}
 		}
 
-		cout << result << "\n";
+		cout << cnt << "\n";
+
+		for (int i = 0; i < M; i++)
+		{
+			for (int j = 0; j < N; j++)
+			{
+				map[i][j] = 0;
+				visited[i][j] = false;
+			}
+		}
 	}
+
 	return 0;
 }
