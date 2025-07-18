@@ -1,60 +1,58 @@
 #include <iostream>
-#include <stack>
 #include <vector>
-#include <string>
-#include <queue>
-
+#include <stack>
 using namespace std;
 
 int main()
 {
-	ios::sync_with_stdio(false);
+    ios::sync_with_stdio(false);
+    cin.tie(0);
 
-	cin.tie(nullptr);
-	cout.tie(nullptr);
+    int n;
+    cin >> n;
 
-	int n, x;
+    stack<int> stk;
+    vector<char> result;
 
-	queue<int> que;
-	stack<int> stk;
+    int cur = 1; // 현재 넣을 숫자
+    bool possible = true;
 
-	vector<string> result;
+    for (int i = 0; i < n; i++)
+    {
+        int x;
+        cin >> x;
 
+        // cur까지 push
+        while (cur <= x)
+        {
+            stk.push(cur++);
+            result.push_back('+');
+        }
 
-	cin >> n;
+        // 스택의 top이 x면 pop
+        if (stk.top() == x)
+        {
+            stk.pop();
+            result.push_back('-');
+        }
+        else
+        {
+            possible = false;
+            break;
+        }
+    }
 
-	//n까지의 수 저장
-	for (int i = 0; i < n; i++) que.push(i + 1);
+    if (!possible) 
+    {
+        cout << "NO\n";
+    }
+    else
+    {
+        for (char c : result)
+        {
+            cout << c << "\n";
+        }
+    }
 
-	for (int i = 0; i < n; i++)
-	{
-		cin >> x;
-
-		while (!que.empty() && que.front() <= x)
-		{
-			stk.push(que.front());
-			que.pop();
-
-			result.push_back("+");
-		}
-
-		if (!stk.empty() && stk.top() == x)
-		{
-			stk.pop();
-			result.push_back("-");
-		}
-		else if (!stk.empty() && stk.top() > x)
-		{
-			cout << "NO\n";
-			return 0;
-		}
-	}
-
-	for (int i = 0; i < result.size(); i++)
-	{
-		cout << result[i] << "\n";
-	}
-
-
-	return 0;
+    return 0;
 }
