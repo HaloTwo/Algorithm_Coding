@@ -7,33 +7,33 @@ using namespace std;
 int main()
 {
 	ios::sync_with_stdio(false);
-
-	cin.tie(nullptr);
-	cout.tie(nullptr);
+	cin.tie(0);
+	cout.tie(0);
 
 	int N, startTime, endTime;
-	int count = 0;
-	int lastEnd = 0;
-
-	vector<pair<int, int>> time;
 
 	cin >> N;
+
+	vector<pair<int, int>> times(N);
 
 	for (int i = 0; i < N; i++)
 	{
 		cin >> startTime >> endTime;
 
-		time.push_back({endTime, startTime});
+		times[i] = { endTime, startTime };
 	}
 
-	sort(time.begin(), time.end());
+	sort(times.begin(), times.end());
 
-	for (int i = 0; i < time.size(); i++)
+	int count = 0;
+	int minTime = -1;
+
+	for (int i = 0; i < N; i++)
 	{
-		if (time[i].second >= lastEnd) 
-		{ 
+		if (times[i].second >= minTime)
+		{
 			count++;
-			lastEnd = time[i].first; 
+			minTime = times[i].first;
 		}
 	}
 
