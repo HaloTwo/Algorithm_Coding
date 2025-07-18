@@ -6,58 +6,56 @@ using namespace std;
 int main()
 {
 	ios::sync_with_stdio(false);
-
-	cin.tie(nullptr);
-	cout.tie(nullptr);
+	cin.tie(0);
 
 
-	int testCase, n, targetNum;
+	int N;
+	cin >> N;
 
-	cin >> testCase;
-
-	for (int i = 0; i < testCase; i++)
+	while (N--)
 	{
-		cin >> n >> targetNum;
+		int n, m; // 문서의 갯수 n , 몇번째로 인쇄되었는지 정수 m
+		int x;
 
+		cin >> n >> m;
 
-		queue<pair<int, int>> q;           // <중요도, 인덱스>
-		priority_queue<int> pq;            // 최대 중요도 관리
+		queue<pair<int, int>> q;
+		priority_queue<int> pq;
 
-
-		for (int j = 0; j < n; j++)
+		for (int i = 0; i < n; i++)
 		{
-			int num;
-			cin >> num;
+			cin >> x;
 
-			q.push({ num, j });
-			pq.push(num);
+			q.push({ x,i });
+			pq.push(x);
 		}
 
-		int count = 0;
+		int pqIndex = 0;
 
 		while (!q.empty())
 		{
-			int a = q.front().first;
-			int b = q.front().second;
+			int value = q.front().first;
+			int index = q.front().second;
 			q.pop();
 
-			//중요도가 동일한 문서를 찾으면 
-			if (a == pq.top())
+			//가장 우선순위가 높은 값과 현재 값과 똑같음
+			if (value == pq.top())
 			{
+				pqIndex++;
 				pq.pop();
-				count++;
 
-				//관심 문서면 출력
-				if (b == targetNum)
+				if (m == index)
 				{
-					cout << count << '\n';
+					cout << pqIndex << "\n";
 					break;
 				}
 			}
-			//못찾으면 다시 맨 뒤로 보내기
 			else
-				q.push({ a,b });
+			{
+				q.push({ value , index });
+			}
 		}
 	}
+
 	return 0;
 }
