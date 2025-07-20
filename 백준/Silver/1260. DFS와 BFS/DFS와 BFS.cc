@@ -1,42 +1,41 @@
 #include <iostream>
 #include <vector>
-#include <algorithm> 
 #include <queue>
+#include <algorithm>
+
 using namespace std;
 
-const int MAX = 1001;    // N이 1000 이하
-vector<int> graph[MAX];  // 인접 리스트
-bool visited[MAX] = {};       // 방문 체크 배열
-
-//시작 정점
-void dfs(int node)
+//재귀를 이용
+void dfs(bool visited[], vector<int> graph[], int v)
 {
-	visited[node] = true;
-	cout << node << " ";
+	visited[v] = true;
+	cout << v << " ";
 
-	for (auto next : graph[node])
+	for (int next : graph[v])
 	{
 		if (!visited[next])
 		{
-			dfs(next);
+			dfs(visited, graph, next);
 		}
 	}
 }
 
-void bfs(int start)
+//큐를 이용
+void bfs(bool visited[], vector<int> graph[], int v)
 {
 	queue<int> q;
 
-	visited[start] = true;
-	q.push(start);
+	q.push(v);
+	visited[v] = true;
 
 	while (!q.empty())
 	{
-		int node = q.front();
+		int qFront = q.front();
 		q.pop();
-		cout << node << " ";
 
-		for (int next : graph[node])
+		cout << qFront << " ";
+
+		for (int next : graph[qFront])
 		{
 			if (!visited[next])
 			{
@@ -48,36 +47,42 @@ void bfs(int start)
 }
 
 
-
 int main()
 {
-	ios_base::sync_with_stdio(false);
+	ios::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
 
-	int N, M, V;
-	cin >> N >> M >> V;    // 정점 개수, 간선 개수, 시작 정점
 
-	// 간선 정보 입력
+	int N, M, V;
+
+
+	cin >> N >> M >> V;
+
+	vector<int> graph[1001];
+	bool visited[1001] = { false };
+
 	for (int i = 0; i < M; i++)
 	{
 		int a, b;
+
 		cin >> a >> b;
+
 		graph[a].push_back(b);
-		graph[b].push_back(a);    // 양방향 그래프
+		graph[b].push_back(a);
 	}
 
-	//정렬
 	for (int i = 1; i <= N; i++)
 	{
 		sort(graph[i].begin(), graph[i].end());
 	}
 
-	dfs(V);
-	fill(visited, visited + MAX, false);
+	dfs(visited, graph, V);
+
 	cout << "\n";
-	bfs(V);
+	fill(visited, visited + 1001, false); 
+
+	bfs(visited, graph, V);
 
 	return 0;
 }
-
