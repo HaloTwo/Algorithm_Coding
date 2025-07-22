@@ -1,58 +1,63 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <algorithm>
 
 using namespace std;
 
 bool visited[100001] = { false };
 int dist[100001];
 
-void bfs(int n, int k)
+void bfs(int N, int M)
 {
 	queue<int> q;
-	q.push(n);
-	visited[n] = true;
-	dist[n] = 0;
+
+	visited[N] = true;
+	dist[N] = 0;
+
+	q.push(N);
 
 	while (!q.empty())
 	{
 		int current = q.front();
 		q.pop();
 
-		if (current == k)
+		if (current == M)
 		{
-			cout << dist[current] << "\n";
-			return; // 찾았으니 끝
+			cout << dist[current];
+			return;
 		}
 
-		int next[3] = { current - 1, current + 1, current * 2 };
+		int num[3] = { current - 1, current + 1 , current * 2 };
 
 		for (int i = 0; i < 3; i++)
 		{
-			int nx = next[i];
-			if (nx >= 0 && nx <= 100000 && !visited[nx])
+			int next = num[i];
+			if (next >= 0 && next <= 100000 && !visited[next])
 			{
-				visited[nx] = true;
-				dist[nx] = dist[current] + 1; 
-				q.push(nx);
+				dist[next] = dist[current] + 1;
+				visited[next] = true;
+				q.push(next);
 			}
 		}
 	}
+
+
+
 }
+
 
 int main()
 {
 	ios::sync_with_stdio(false);
+
 	cin.tie(0);
 	cout.tie(0);
 
-	int N, K;
+	int N, M;
 
-	cin >> N >> K;
+	cin >> N >> M;
 
-	bfs(N, K);
-
+	bfs(N, M);
 
 	return 0;
 }
