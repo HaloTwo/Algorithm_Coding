@@ -4,21 +4,15 @@
 
 using namespace std;
 
-
-int dist[100001]; // 최소 시간,
-const int INF = 1e9;
+int dist[100001];
 
 void bfs(int N, int M)
 {
-
-	for (int i = 0; i <= 100001; i++)
-	{
-		dist[i] = INF;
-	}
-
 	deque<int> dq;
 
 	dq.push_back(N);
+
+	fill(dist, dist + 100001, 1e9);
 	dist[N] = 0;
 
 	while (!dq.empty())
