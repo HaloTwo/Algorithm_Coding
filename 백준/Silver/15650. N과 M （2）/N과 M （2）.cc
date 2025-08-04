@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+int N, M; // 1~Nㄲ지의 자연수 중 중복없이 M개를 고른
+int selected[10];
+bool used[10];
+
+void backtrack(int depth, int start)
+{
+	//M개의 깊이까지 왔음
+	if (depth == M)
+	{
+		for (int i = 0; i < M; i++)
+		{
+			cout << selected[i] << " ";
+		}
+		cout << "\n";
+		return;
+	}
+
+	for (int i = start; i <= N; i++)
+	{
+		//이미 방문했음
+		if (used[i]) continue;
+
+		selected[depth] = i;
+		used[i] = true;
+
+		//다음 깊이로
+		backtrack(depth + 1, i + 1);
+
+		used[i] = false;
+	}
+}
+
+int main()
+{
+	cin >> N >> M;
+	backtrack(0, 1);
+}
